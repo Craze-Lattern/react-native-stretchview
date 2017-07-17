@@ -61,3 +61,9 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+# npm
+.DS_Store
+npm-debug.log
+node_modules/
+package-lock.json
