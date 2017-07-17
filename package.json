@@ -1,6 +1,6 @@
 {
   "name": "react-native-stretchview",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "StretchView implemented in JavaScript.",
   "main": "src/index",
   "jsnext:main": "src/index",
@@ -8,6 +8,9 @@
     "*.md",
     "src"
   ],
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "scripts": {
     "test": "npm run lint",
     "lint": "eslint src/"
@@ -20,7 +23,11 @@
     "url": "https://github.com/guoyuan94/react-native-stretchview/issues"
   },
   "keywords": [
-    "react-native"
+    "react",
+    "react-native",
+    "stretchview",
+    "iOS",
+    "andorid"
   ],
   "author": "guoyuan94",
   "license": "MIT",
