@@ -1,4 +1,4 @@
-## React Native StretchView [![CircleCI branch](https://img.shields.io/circleci/project/guoyuan94/react-native-stretchview/master.svg)](https://circleci.com/gh/guoyuan94/react-native-stretchview) [![npm](https://img.shields.io/npm/v/react-native-stretchview.svg)](https://www.npmjs.com/package/react-native-stretchview) [![license](https://img.shields.io/npm/l/react-native-stretchview.svg)](https://github.com/guoyuan94/react-native-stretchview/blob/master/LICENSE)
+## React Native StretchView [![Build Status](https://travis-ci.org/guoyuan94/react-native-stretchview.svg?branch=master)](https://travis-ci.org/guoyuan94/react-native-stretchview) [![npm](https://img.shields.io/npm/v/react-native-stretchview.svg)](https://www.npmjs.com/package/react-native-stretchview) [![license](https://img.shields.io/npm/l/react-native-stretchview.svg)](https://github.com/guoyuan94/react-native-stretchview/blob/master/LICENSE) 
 
 StretchView implemented in JavaScript.
 
