@@ -1,7 +1,6 @@
-import React, {
-  Component,
-  PropTypes,
-} from 'react';
+import React, { Component } from 'react';
+
+import PropTypes from 'prop-types';
 
 import {
   StyleSheet,
@@ -16,22 +15,6 @@ const styles = StyleSheet.create({
 });
 
 export default class StretchView extends Component {
-  static propTypes = {
-    stretchDuration: PropTypes.number,
-    renderTopFace: PropTypes.func.isRequired,
-    renderBottomFace: PropTypes.func.isRequired,
-
-    animateDistance: PropTypes.number.isRequired,
-    expanded: PropTypes.bool.isRequired,
-    onAnimationEnd: PropTypes.func,
-    onAnimationStart: PropTypes.func,
-    syncAnimations: PropTypes.func,
-  }
-
-  static defaultProps = {
-    stretchDuration: 250,
-  }
-
   constructor(props, context) {
     super(props, context);
     this.state = {
@@ -44,58 +27,89 @@ export default class StretchView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.expanded !== this.props.expanded) {
+    const { expanded } = this.props;
+    if (nextProps.expanded !== expanded) {
       this.stretch(nextProps.expanded);
     }
   }
 
   stretch(expanded) {
-    const duration = this.props.stretchDuration;
+    const {
+      stretchDuration,
+      animateDistance,
+      onAnimationStart,
+      syncAnimations,
+      onAnimationEnd,
+    } = this.props;
+    const { animateHeight } = this.state;
+    const duration = stretchDuration;
 
-    const toValue = expanded ? this.props.animateDistance : 0;
+    const toValue = expanded ? animateDistance : 0;
 
-    if (this.props.onAnimationStart) {
-      this.props.onAnimationStart();
+    if (onAnimationStart) {
+      onAnimationStart();
     }
 
     let animations = [
-      Animated.timing(this.state.animateHeight, {
+      Animated.timing(animateHeight, {
         toValue,
         duration,
       }),
     ];
 
-    if (this.props.syncAnimations) {
-      animations = animations.concat(this.props.syncAnimations());
+    if (syncAnimations) {
+      animations = animations.concat(syncAnimations());
     }
 
     Animated.parallel(animations).start();
 
-    if (this.props.onAnimationEnd) {
-      this.props.onAnimationEnd(duration, toValue);
+    if (onAnimationEnd) {
+      onAnimationEnd(duration, toValue);
     }
   }
 
 
   render() {
-    const pointerEvents = this.props.expanded ? 'box-none' : 'auto';
+    const {
+      expanded,
+      renderTopFace,
+      renderBottomFace,
+    } = this.props;
+    const { animateHeight } = this.state;
+    const pointerEvents = expanded ? 'box-none' : 'auto';
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         {
-          this.props.renderTopFace()
+          renderTopFace()
         }
         <Animated.View
           style={{
-            height: this.state.animateHeight,
+            height: animateHeight,
             overflow: 'hidden',
           }}
           pointerEvents={pointerEvents}
         >
           {
-            this.props.renderBottomFace()
+            renderBottomFace()
           }
         </Animated.View>
       </View>
     );
   }
 }
+
+StretchView.propTypes = {
+  stretchDuration: PropTypes.number,
+  renderTopFace: PropTypes.func.isRequired,
+  renderBottomFace: PropTypes.func.isRequired,
+
+  animateDistance: PropTypes.number.isRequired,
+  expanded: PropTypes.bool.isRequired,
+  onAnimationEnd: PropTypes.func,
+  onAnimationStart: PropTypes.func,
+  syncAnimations: PropTypes.func,
+};
+
+StretchView.defaultProps = {
+  stretchDuration: 250,
+};

@@ -4,37 +4,38 @@ import { ListView } from 'react-native';
 
 import Row from './Row';
 
-export default class SimpleList extends Component{
+export default class SimpleList extends Component {
   constructor(props) {
     super(props);
 
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
-      dataSource: ds.cloneWithRows(this._genrows()),
+      dataSource: ds.cloneWithRows(this.genrows()),
     };
   }
 
-  _genrows(){
-    let rows = [];
-    for (let i = 0; i < 20; i++) {
-      let rowtmp = {};
-      rowtmp.name = 'Test ' + i;
+  genrows() { // eslint-disable-line class-methods-use-this
+    const rows = [];
+    for (let i = 0; i < 20; i++) { // eslint-disable-line no-plusplus
+      const rowtmp = {};
+      rowtmp.name = `Test ${i}`;
       rows.push(rowtmp);
     }
     return rows;
   }
 
-  _renderRows(rowData){
-    return(
+  renderRows(rowData) { // eslint-disable-line class-methods-use-this
+    return (
       <Row title={rowData.name} />
-    )
+    );
   }
 
-  render(){
-    return(
+  render() {
+    const { dataSource } = this.state;
+    return (
       <ListView
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) =>this._renderRows(rowData)}
+        dataSource={dataSource}
+        renderRow={(rowData) => this.renderRows(rowData)}
       />
     )
   }
